@@ -401,7 +401,7 @@ export default function PrimexBusiness() {
           <motion.img
             src={cryptoImg2}
             alt="Floating crypto pattern"
-            className="absolute top-1/2 left-1/2 w-[800px] h-auto object-cover opacity-20 transform -translate-x-1/2 -translate-y-1/2 z-0 filter blur-sm"
+            className="absolute top-1/2 left-1/2 w-[800px] h-auto object-cover opacity-20 transform -translate-x-1/2 -translate-y-1/2 z-0"
             animate={{
               scale: [1, 1.1, 1],
               rotate: [0, 5, -5, 0],
@@ -451,7 +451,7 @@ export default function PrimexBusiness() {
               viewport={{ once: true, amount: 0.5 }} 
               className="relative"
             >
-              <div className="p-6 rounded-2xl bg-gradient-to-br from-[#081225] to-[#061026] border border-white/5 shadow-[0_20px_60px_rgba(2,6,23,0.6)]">
+              <div className="p-6 rounded-2xl bg-black/30 border border-white/5 shadow-2xl backdrop-blur-md">
                 <h4 className="text-lg font-semibold text-white mb-3">Trusted by Industry Leaders</h4>
                 <div className="space-y-6 mt-4">
                   {quotes.map((q, i) => (
