@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import './App.css';
 import './index.css';
@@ -6,6 +6,11 @@ import cryptoImg from "./assets/Blockchain.png";
 import cryptoImg2 from "./assets/Crypto.png";
 import { FaLaptopCode, FaUniversity, FaShieldAlt, FaLightbulb, FaChalkboardTeacher, FaTimes, FaBars, FaQuoteLeft } from "react-icons/fa";
 import { SiEthereum } from "react-icons/si";
+
+// Import 3D libraries and component
+import { Canvas } from '@react-three/fiber';
+import { OrbitControls } from '@react-three/drei';
+import SpinningCube from "./components/SpinningCube";
 
 export default function PrimexBusiness() {
   const sections = ["home", "services", "about", "values", "mission", "contact"];
@@ -135,17 +140,6 @@ export default function PrimexBusiness() {
     }
   ];
 
-  const missionData = [
-    {
-      quote: "To democratize access to Web3 technology by providing world-class consulting, development, and education.",
-      image: "https://images.unsplash.com/photo-1542831371-29b0f74f9408?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-    },
-    {
-      quote: "Our goal is to build a transparent, collaborative, and innovative digital future.",
-      image: "https://images.unsplash.com/photo-1620023253556-9d33b3780512?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-    }
-  ];
-
   const quotes = [
     {
       text: "We empower businesses to embrace the decentralized future through consulting, development, and education - helping teams ship secure, scalable blockchain products.",
@@ -159,7 +153,7 @@ export default function PrimexBusiness() {
   ];
 
   return (
-    <div className="min-h-screen font-inter text-gray-100 bg-gradient-to-b from-[#071025] via-[#020814] to-[#000000] scroll-smooth">
+    <div className="min-h-screen font-inter text-gray-100 bg-gradient-to-b from-[#071025] via-[#020814] to-[#000000] scroll-smooth relative overflow-hidden">
       {/* Sticky glass navbar with blur */}
       <header className="fixed w-full top-0 z-50">
         <div className="backdrop-blur-md bg-black/40 border-b border-white/5">
@@ -254,26 +248,73 @@ export default function PrimexBusiness() {
 
       {/* HERO */}
       <main className="pt-6">
-        <section id="home" className="py-28 px-6 md:py-36">
-          <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        <section id="home" className="py-28 px-6 md:py-36 relative">
+          {/* NEW: Floating Animated Orbs */}
+          <div className="hero-background-texture"></div>
+          <motion.div
+            className="absolute top-[10%] left-[5%] w-48 h-48 rounded-full mix-blend-screen filter blur-3xl opacity-50"
+            style={{ background: "rgba(100, 150, 255, 0.4)" }}
+            animate={{
+              x: [0, 80, -40, 0],
+              y: [0, 60, -80, 0],
+              scale: [1, 1.2, 0.9, 1.1, 1],
+              rotate: [0, 360],
+            }}
+            transition={{ duration: 30, repeat: Infinity, ease: "easeInOut" }}
+          />
+          <motion.div
+            className="absolute bottom-[20%] right-[15%] w-56 h-56 rounded-full mix-blend-screen filter blur-3xl opacity-50"
+            style={{ background: "rgba(255, 100, 200, 0.4)" }}
+            animate={{
+              x: [0, -60, 100, 0],
+              y: [0, -80, 50, 0],
+              scale: [1, 0.8, 1.1, 1],
+              rotate: [0, -360],
+            }}
+            transition={{ duration: 40, repeat: Infinity, ease: "easeInOut" }}
+          />
+
+          {/* Main content with z-index */}
+          <div className="relative z-10 max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.7 }}
               className="space-y-6"
             >
-              <p className="inline-flex items-center gap-3 text-sm text-cyan-300">✨ Leading Web3 Innovation</p>
-              <h1 className="text-4xl md:text-5xl font-extrabold leading-tight text-white">
+              <motion.p 
+                initial={{ opacity: 0, y: -10 }} 
+                animate={{ opacity: 1, y: 0 }} 
+                transition={{ delay: 0.8, duration: 0.5 }}
+                className="inline-flex items-center gap-3 text-sm text-cyan-300"
+              >
+                ✨ Leading Web3 Innovation
+              </motion.p>
+              <motion.h1 
+                initial={{ opacity: 0, y: -10 }} 
+                animate={{ opacity: 1, y: 0 }} 
+                transition={{ delay: 0.9, duration: 0.5 }}
+                className="text-4xl md:text-5xl font-extrabold leading-tight text-white"
+              >
                 Empowering the <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-indigo-400 to-purple-400">Future of Web3</span> & Blockchain
-              </h1>
-              <p className="text-gray-300 max-w-xl">
+              </motion.h1>
+              <motion.p 
+                initial={{ opacity: 0, y: -10 }} 
+                animate={{ opacity: 1, y: 0 }} 
+                transition={{ delay: 1, duration: 0.5 }}
+                className="text-gray-300 max-w-xl"
+              >
                 At Primex Business, we drive collaboration, innovation, and measurable impact across the Web3 ecosystem - transforming ideas into production-grade blockchain solutions.
-              </p>
+              </motion.p>
 
               <div className="flex flex-wrap gap-4">
                 <a href="#contact">
                   <motion.button
                     whileHover={{ scale: 1.03 }}
+                    animate={{
+                      scale: [1, 1.05, 1],
+                      transition: { duration: 1.5, repeat: Infinity, repeatType: "loop" }
+                    }}
                     className="px-5 py-3 rounded-full bg-gradient-to-r from-cyan-400 to-purple-500 text-black font-semibold shadow-[0_12px_40px_rgba(67,56,202,0.12)]"
                   >
                     Start Your Web3 Journey →
@@ -287,22 +328,20 @@ export default function PrimexBusiness() {
               </div>
             </motion.div>
 
-            {/* Visual / Abstract illustration area */}
+            {/* New 3D Visual Area */}
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.7 }}
               className="flex justify-center md:justify-end"
             >
-              <div className="relative w-full max-w-md">
-                {/* <div className="absolute -inset-6 rounded-3xl bg-gradient-to-br from-cyan-500/20 via-blue-500/10 to-purple-500/20 blur-3xl" /> */}
-                <div className="">
-                  <img
-                    src={cryptoImg2}
-                    alt="Blockchain illustration"
-                    className="w-full max-w-md rounded-2xl "
-                  />
-                </div>
+              <div className="relative w-full max-w-md h-96">
+                <Canvas camera={{ position: [0, 0, 2], fov: 75 }}>
+                  <ambientLight intensity={1.0} />
+                  <pointLight position={[10, 10, 10]} />
+                  <SpinningCube />
+                  <OrbitControls enableZoom={false} autoRotate autoRotateSpeed={2} />
+                </Canvas>
               </div>
             </motion.div>
           </div>
@@ -311,7 +350,12 @@ export default function PrimexBusiness() {
         {/* SERVICES */}
         <section id="services" className="py-20 px-6 bg-[#020617]">
           <div className="max-w-6xl mx-auto">
-            <motion.h2 className="text-3xl md:text-4xl font-bold text-white mb-6" initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+            <motion.h2 
+              className="text-3xl md:text-4xl font-bold text-white mb-6" 
+              initial={{ opacity: 0, y: 10 }} 
+              whileInView={{ opacity: 1, y: 0 }} 
+              viewport={{ once: true, amount: 0.5 }}
+            >
               Our Web3 Services
             </motion.h2>
             <p className="text-gray-400 max-w-2xl mb-10">Comprehensive blockchain solutions designed to drive innovation, collaboration, and measurable impact for your business.</p>
@@ -352,9 +396,25 @@ export default function PrimexBusiness() {
         </section>
 
         {/* ABOUT */}
-        <section id="about" className="py-20 px-6">
-          <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 items-center">
-            <motion.div initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
+        <section id="about" className="py-20 px-6 relative">
+          {/* NEW: Animated image behind the content */}
+          <motion.img
+            src={cryptoImg2}
+            alt="Floating crypto pattern"
+            className="absolute top-1/2 left-1/2 w-[800px] h-auto object-cover opacity-20 transform -translate-x-1/2 -translate-y-1/2 z-0 filter blur-sm"
+            animate={{
+              scale: [1, 1.1, 1],
+              rotate: [0, 5, -5, 0],
+            }}
+            transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+          />
+
+          <div className="relative z-10 max-w-6xl mx-auto grid md:grid-cols-2 gap-10 items-center">
+            <motion.div 
+              initial={{ opacity: 0, x: -10 }} 
+              whileInView={{ opacity: 1, x: 0 }} 
+              viewport={{ once: true, amount: 0.5 }}
+            >
               <h2 className="text-3xl font-bold text-white mb-4">Pioneering the Web3 Revolution</h2>
               <p className="text-gray-300 mb-6">At Primex Business, we're not just building technologies — we architect solutions that create measurable impact. We combine blockchain expertise with real-world product experience to deliver reliable outcomes.</p>
 
@@ -366,10 +426,17 @@ export default function PrimexBusiness() {
                   "24/7 Dedicated Support",
                   "Proven Track Record in DeFi",
                   "Enterprise-Grade Solutions",
-                ].map((item) => (
-                  <div key={item} className="p-4 rounded-lg bg-[#031026] border border-white/5">
+                ].map((item, i) => (
+                  <motion.div 
+                    key={item} 
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.5 }}
+                    transition={{ delay: i * 0.1 }}
+                    className="p-4 rounded-lg bg-[#031026] border border-white/5"
+                  >
                     <p className="text-gray-200 text-sm">{item}</p>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
 
@@ -377,8 +444,13 @@ export default function PrimexBusiness() {
                 <a href="#contact" className="inline-block px-5 py-3 rounded-full bg-gradient-to-r from-cyan-400 to-purple-500 text-black font-semibold">Partner With Us</a>
               </div>
             </motion.div>
-
-            <motion.div initial={{ opacity: 0, x: 10 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="relative">
+            
+            <motion.div 
+              initial={{ opacity: 0, x: 10 }} 
+              whileInView={{ opacity: 1, x: 0 }} 
+              viewport={{ once: true, amount: 0.5 }} 
+              className="relative"
+            >
               <div className="p-6 rounded-2xl bg-gradient-to-br from-[#081225] to-[#061026] border border-white/5 shadow-[0_20px_60px_rgba(2,6,23,0.6)]">
                 <h4 className="text-lg font-semibold text-white mb-3">Trusted by Industry Leaders</h4>
                 <div className="space-y-6 mt-4">
@@ -403,7 +475,14 @@ export default function PrimexBusiness() {
         {/* VALUES */}
         <section id="values" className="py-20 px-6 bg-[#020617]">
           <div className="max-w-5xl mx-auto text-center">
-            <h2 className="text-3xl font-bold text-white mb-6">Our Core Values</h2>
+            <motion.h2 
+              className="text-3xl font-bold text-white mb-6"
+              initial={{ opacity: 0, y: 10 }} 
+              whileInView={{ opacity: 1, y: 0 }} 
+              viewport={{ once: true, amount: 0.5 }}
+            >
+              Our Core Values
+            </motion.h2>
             <p className="text-gray-400 mb-12">The principles that guide every product and partnership, ensuring we deliver excellence with purpose.</p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {valuesData.map((v, i) => (
@@ -411,9 +490,10 @@ export default function PrimexBusiness() {
                   key={v.title}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
+                  viewport={{ once: true, amount: 0.5 }}
                   transition={{ delay: i * 0.15 }}
-                  className="p-8 rounded-2xl bg-[#041226] border border-white/5 transform transition-all hover:scale-105 hover:shadow-2xl"
+                  whileHover={{ scale: 1.05, boxShadow: "0px 10px 30px rgba(0,0,0,0.3)" }}
+                  className="p-8 rounded-2xl bg-[#041226] border border-white/5 transform transition-all"
                 >
                   <div className="text-4xl mb-4">{v.icon}</div>
                   <h3 className="text-xl font-semibold text-white mb-2">{v.title}</h3>
@@ -431,7 +511,7 @@ export default function PrimexBusiness() {
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
+                viewport={{ once: true, amount: 0.5 }}
                 className="relative p-8 rounded-2xl bg-gradient-to-br from-[#061226] to-[#040c20] border border-white/5 shadow-[0_20px_60px_rgba(2,6,23,0.6)]"
               >
                 <div className="flex items-center gap-4 mb-4 text-cyan-400">
@@ -461,7 +541,7 @@ export default function PrimexBusiness() {
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
+                viewport={{ once: true, amount: 0.5 }}
                 transition={{ duration: 0.5 }}
                 className="relative hidden md:block"
               >
