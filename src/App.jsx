@@ -249,6 +249,16 @@ export default function PrimexBusiness() {
       {/* HERO */}
       <main className="pt-6">
         <section id="home" className="py-28 px-6 md:py-36 relative">
+          <motion.img
+            src={cryptoImg2}
+            alt="Floating crypto pattern"
+            className="absolute top-1/2 left-1/2 w-[800px] h-auto object-cover opacity-20 transform -translate-x-1/2 -translate-y-1/2 z-0"
+            animate={{
+              scale: [1, 1.1, 1],
+              rotate: [0, 5, -5, 0],
+            }}
+            transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+          />
           {/* NEW: Floating Animated Orbs */}
           <div className="hero-background-texture"></div>
           <motion.div
@@ -396,12 +406,12 @@ export default function PrimexBusiness() {
         </section>
 
         {/* ABOUT */}
-        <section id="about" className="py-20 px-6 relative overflow-hidden">
-          {/* The animated image is a child of the section, so it's only visible here */}
+        <section id="about" className="py-20 px-6 relative">
+          {/* NEW: Animated image behind the content */}
           <motion.img
             src={cryptoImg2}
             alt="Floating crypto pattern"
-            className="fixed top-1/2 left-1/2 w-[800px] h-auto object-cover opacity-20 transform -translate-x-1/2 -translate-y-1/2 z-0 filter blur-sm"
+            className="absolute top-1/2 left-1/2 w-[800px] h-auto object-cover opacity-20 transform -translate-x-1/2 -translate-y-1/2 z-0"
             animate={{
               scale: [1, 1.1, 1],
               rotate: [0, 5, -5, 0],
@@ -409,13 +419,10 @@ export default function PrimexBusiness() {
             transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
           />
 
-          {/* A blur overlay for the entire section content to create a glass-like effect */}
-          <div className="absolute inset-0 bg-black/5 backdrop-blur-sm z-[5]"></div>
-
           <div className="relative z-10 max-w-6xl mx-auto grid md:grid-cols-2 gap-10 items-center">
-            <motion.div
-              initial={{ opacity: 0, x: -10 }}
-              whileInView={{ opacity: 1, x: 0 }}
+            <motion.div 
+              initial={{ opacity: 0, x: -10 }} 
+              whileInView={{ opacity: 1, x: 0 }} 
               viewport={{ once: true, amount: 0.5 }}
             >
               <h2 className="text-3xl font-bold text-white mb-4">Pioneering the Web3 Revolution</h2>
@@ -430,13 +437,13 @@ export default function PrimexBusiness() {
                   "Proven Track Record in DeFi",
                   "Enterprise-Grade Solutions",
                 ].map((item, i) => (
-                  <motion.div
-                    key={item}
+                  <motion.div 
+                    key={item} 
                     initial={{ opacity: 0, y: 10 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.5 }}
                     transition={{ delay: i * 0.1 }}
-                    className="p-4 rounded-lg bg-[#031026]/80 border border-white/5 backdrop-blur-sm"
+                    className="p-4 rounded-lg bg-[#031026] border border-white/5"
                   >
                     <p className="text-gray-200 text-sm">{item}</p>
                   </motion.div>
@@ -447,14 +454,14 @@ export default function PrimexBusiness() {
                 <a href="#contact" className="inline-block px-5 py-3 rounded-full bg-gradient-to-r from-cyan-400 to-purple-500 text-black font-semibold">Partner With Us</a>
               </div>
             </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, x: 10 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, amount: 0.5 }}
+            
+            <motion.div 
+              initial={{ opacity: 0, x: 10 }} 
+              whileInView={{ opacity: 1, x: 0 }} 
+              viewport={{ once: true, amount: 0.5 }} 
               className="relative"
             >
-              <div className="p-6 rounded-2xl  shadow-2xl backdrop-blur-md">
+              <div className="p-6 rounded-2xl shadow-2xl backdrop-blur-md">
                 <h4 className="text-lg font-semibold text-white mb-3">Trusted by Industry Leaders</h4>
                 <div className="space-y-6 mt-4">
                   {quotes.map((q, i) => (
@@ -464,7 +471,7 @@ export default function PrimexBusiness() {
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
                       transition={{ delay: i * 0.2 }}
-                      className="relative p-4 rounded-lg bg-[#041225] border border-white/5 backdrop-blur-md"
+                      className="relative p-4 rounded-lg bg-[#041225] border border-white/5"
                     >
                       <p className="text-gray-300 text-sm italic mb-2">"{q.text}"</p>
                     </motion.div>
