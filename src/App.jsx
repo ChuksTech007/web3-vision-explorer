@@ -445,7 +445,7 @@ export default function PrimexBusiness() {
               className="relative h-[400px] md:h-full min-h-[400px] flex items-center justify-center"
             >
               <div className="relative w-full h-full rounded-2xl shadow-2xl backdrop-blur-md overflow-hidden bg-[#041022] border border-white/5">
-                <h4 className="text-lg font-semibold text-white p-6 pb-2">Trusted Partners & Portfolio Highlights</h4>
+                <h4 className="text-lg font-semibold text-white p-6 pb-2 md:pb-0">Trusted Partners & Portfolio Highlights</h4>
                 <div className="h-full w-full relative">
                   <AnimatePresence initial={false} mode="wait">
                     <motion.div
@@ -455,13 +455,13 @@ export default function PrimexBusiness() {
                       exit={{ opacity: 0, x: -30 }}
                       transition={{ duration: 0.5 }}
                       // Updated class to vertically center content (image + text + dots)
-                      className="absolute inset-x-0 top-8 bottom-0 flex flex-col items-center justify-center p-6 text-center" 
+                      className="relative md:absolute inset-x-0 top-6 bottom-0 flex flex-col items-center justify-center p-6 text-center" 
                     >
                       {/* 1. Image */}
                       <img
                         src={sliderImages[currentSlide].img}
                         alt={sliderImages[currentSlide].title}
-                        className="w-3/4 h-40 object-cover rounded-lg shadow-xl mb-4 border border-white/10"
+                        className="w-3/4 h-40 md:h-50 object-cover rounded-lg shadow-xl mb-4 border border-white/10"
                       />
                       
                       {/* 2. Write-up (Title & Description) */}
