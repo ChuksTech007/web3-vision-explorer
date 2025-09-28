@@ -467,7 +467,7 @@ export default function PrimexBusiness() {
                       {/* 2. Write-up (Title & Description) */}
                       <div className="mb-4"> {/* Added mb-4 for spacing before dots */}
                           <h5 className="text-2xl font-bold text-white mb-2">{sliderImages[currentSlide].title}</h5>
-                          <p className="text-gray-400 max-w-xs">{sliderImages[currentSlide].desc}</p>
+                          <p className="text-gray-400 max-w-xs hidden display:block">{sliderImages[currentSlide].desc}</p>
                       </div>
                       
                       {/* 3. Navigation dots (NOW LOCATED INSIDE THE ANIMATED CONTAINER) */}
