@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import './App.css';
 import './index.css';
 import cryptoImg from "./assets/Blockchain.png";
-import cryptoImg2 from "./assets/Crypto.png";
+import cryptoImg2 from "./assets/Crypto.jpg";
 import { FaLaptopCode, FaUniversity, FaShieldAlt, FaLightbulb, FaChalkboardTeacher, FaTimes, FaBars, FaTelegramPlane, FaLinkedin, FaInstagram, FaFacebook, FaTwitter } from "react-icons/fa";
 import { SiEthereum, SiSolidity, SiPolygon, SiRust, SiReact, SiNextdotjs } from "react-icons/si";
 
