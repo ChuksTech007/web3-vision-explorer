@@ -56,18 +56,36 @@ export default function PrimexBusiness() {
   // Smooth scroll handler (unchanged)
   useEffect(() => {
     const links = document.querySelectorAll("a[href^='#']");
+
     const onClick = (e) => {
-      e.preventDefault();
-      const targetId = e.currentTarget.getAttribute("href").substring(1);
+      const href = e.currentTarget.getAttribute("href");
+      const targetId = href?.substring(1);
       const target = document.getElementById(targetId);
-      if (!target) return;
-      const top = target.getBoundingClientRect().top + window.pageYOffsets - 84; 
-      window.scrollTo({ top, behavior: "smooth" });
-      setIsMobileMenuOpen(false); 
+
+      // Only handle internal anchors
+      if (target) {
+        e.preventDefault();
+
+        // Detect screen width to adjust offset dynamically
+        const isMobile = window.innerWidth <= 768;
+        const offset = isMobile ? 64 : 84; // smaller offset for mobile navbar
+
+        const top = target.getBoundingClientRect().top + window.pageYOffset - offset;
+
+        window.scrollTo({
+          top,
+          behavior: "smooth",
+        });
+
+        // Close mobile menu if open
+        setIsMobileMenuOpen(false);
+      }
     };
-    links.forEach((l) => l.addEventListener("click", onClick));
-    return () => links.forEach((l) => l.removeEventListener("click", onClick));
+
+    links.forEach((link) => link.addEventListener("click", onClick));
+    return () => links.forEach((link) => link.removeEventListener("click", onClick));
   }, []);
+
 
   // AUTO-SLIDER EFFECT (unchanged logic, still cycles 3 images)
   useEffect(() => {
@@ -219,16 +237,23 @@ export default function PrimexBusiness() {
 
         {/* Mobile menu overlay with animation (unchanged) */}
         <AnimatePresence>
-          {isMobileMenuOpen && (
-            <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.2 }}
-              className="md:hidden fixed top-0 left-0 w-full h-screen backdrop-blur-md bg-black/60 z-40"
-            >
-              <ul className="flex flex-col items-center justify-center space-y-8 pt-24 pb-8">
-                {sections.map((id) => (
+           {isMobileMenuOpen && (
+             <motion.div
+               initial={{ opacity: 0, y: -20 }}
+               animate={{ opacity: 1, y: 0 }}
+               exit={{ opacity: 0, y: -20 }}
+               transition={{ duration: 0.2 }}
+               className="md:hidden fixed top-0 left-0 w-full h-screen backdrop-blur-md bg-black/60 z-40"
+              // Add the onClick handler to close the menu when the backdrop is clicked
+               onClick={() => setIsMobileMenuOpen(false)}
+             >
+               {/* To prevent closing when tapping the menu *content* (the <ul>), 
+                  we add event propagation stopping to the content wrapper. */}
+               <ul 
+                  className="flex flex-col items-center justify-center space-y-8 pt-24 pb-8"
+                  onClick={(e) => e.stopPropagation()} // <-- This is crucial!
+              >
+                 {sections.map((id) => (
                   <li key={id}>
                     <a
                       href={`#${id}`}
